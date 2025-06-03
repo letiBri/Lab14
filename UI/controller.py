@@ -62,21 +62,27 @@ class Controller:
             self._view.update_page()
             return
         self._view.txt_result.controls.append(ft.Text(f"Nodo di partenza: {self._choiceDDNodi.order_id}"))
-        self._view.update_page()
         path = self._model.getCamminoMax(self._choiceDDNodi)
         for p in path:
             self._view.txt_result.controls.append(ft.Text(p.order_id))
         self._view.update_page()
 
-
     def handleRicorsione(self, e):
-        pass
+        self._view.txt_result.controls.clear()
+        if self._choiceDDNodi is None:
+            self._view.txt_result.controls.append(ft.Text("Attenzione: selezionare il nodo di partenza!", color="red"))
+            self._view.update_page()
+            return
+        bestPath, pesoMax = self._model.getBestPathPesoMax(self._choiceDDNodi)
+        self._view.txt_result.controls.append(ft.Text(f"Percorso di peso massimo che parte dal nodo {self._choiceDDNodi.order_id} trovato!"))
+        for p in bestPath:
+            self._view.txt_result.controls.append(ft.Text(p.order_id))
+        self._view.update_page()
 
     def fillDDNodi(self, listOfNodes):
         for n in listOfNodes:
             self._view._ddNode.options.append(ft.dropdown.Option(key=n.order_id, data=n, on_click=self.getSelectedNode))
         self._view.update_page()
-
 
     def getSelectedNode(self, e):
         if e.control.data is None:
