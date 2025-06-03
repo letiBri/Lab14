@@ -1,18 +1,18 @@
 DROP DATABASE IF EXISTS `bike_store_full`;
-CREATE DATABASE IF NOT EXISTS `bike_store_full` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE IF NOT EXISTS `bike_store_full` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `bike_store_full`;
 
 CREATE TABLE IF NOT EXISTS `brands` (
   `brand_id` int NOT NULL,
   `brand_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`brand_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `category_id` int NOT NULL,
   `category_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `customer_id` int NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
   `state` varchar(100) DEFAULT NULL,
   `zip_code` int DEFAULT NULL,
   PRIMARY KEY (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `staff` (
   `staff_id` int NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
   PRIMARY KEY (`staff_id`),
   KEY `staff_stores_FK` (`store_id`),
   CONSTRAINT `staff_stores_FK` FOREIGN KEY (`store_id`) REFERENCES `stores` (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `order_id` int NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `orders_customers_FK` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `orders_staff_FK` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`),
   CONSTRAINT `orders_stores_FK` FOREIGN KEY (`store_id`) REFERENCES `stores` (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `products_brands_FK` (`brand_id`),
   CONSTRAINT `products_brands_FK` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`),
   CONSTRAINT `products_categories_FK` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `order_items` (
   `order_id` int NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   KEY `order_items_products_FK` (`product_id`),
   CONSTRAINT `order_items_orders_FK` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_items_products_FK` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `stocks` (
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `stocks` (
   KEY `stocks_products_FK` (`product_id`),
   CONSTRAINT `stocks_products_FK` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
   CONSTRAINT `stocks_stores_FK` FOREIGN KEY (`store_id`) REFERENCES `stores` (`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 INSERT INTO brands (brand_id,brand_name) VALUES
