@@ -70,8 +70,8 @@ class Model:
     def getEsplorabili(self, n, parziale):
         esplorabili = []
         for node in self._graph.successors(n):
-            if len(parziale) > 1:
-                if node not in parziale and self._graph[parziale[-1]][node]['weight'] < self._graph[parziale[-2]][parziale[-1]]['weight']:
-                    esplorabili.append(node)
+            #if len(parziale) > 1:
+            if node not in parziale and self._graph[parziale[-1]][node]['weight'] < self._graph[parziale[-2]][parziale[-1]]['weight']:
+                esplorabili.append(node)
         return esplorabili
 
