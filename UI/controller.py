@@ -74,7 +74,7 @@ class Controller:
             self._view.update_page()
             return
         bestPath, pesoMax = self._model.getBestPathPesoMax(self._choiceDDNodi)
-        self._view.txt_result.controls.append(ft.Text(f"Percorso di peso massimo che parte dal nodo {self._choiceDDNodi.order_id} trovato!"))
+        self._view.txt_result.controls.append(ft.Text(f"Percorso che parte dal nodo {self._choiceDDNodi.order_id} trovato con peso massimo {pesoMax}!"))
         for p in bestPath:
             self._view.txt_result.controls.append(ft.Text(p.order_id))
         self._view.update_page()
