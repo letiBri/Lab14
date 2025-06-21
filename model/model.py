@@ -13,7 +13,6 @@ class Model:
         self.bestPath = []
         self.pesoMax = 0
 
-
     def getStore(self):
         return DAO.getStore()
 
@@ -35,11 +34,23 @@ class Model:
         return len(self._graph.nodes), len(self._graph.edges)
 
     def getCamminoMax(self, source):
-        cammino = list(nx.bfs_tree(self._graph, source))
-        cammino.remove(source)
-        return cammino
+        longest_path = []
+        tree = nx.dfs_tree(self._graph, source)  # albero DFS a partire dal nodo source
+        nodi = list(tree.nodes())  # tutti i nodi visitati nella DFS
 
-    # per il punto2 con metodo ricorsivo, da controllare
+        for node in nodi:
+            tmp = [node]  # inizio un cammino che termina nel nodo attuale
+
+            while tmp[0] != source:
+                pred = nx.predecessor(tree, source, tmp[0])  # Trova il predecessore di tmp[0]
+                tmp.insert(0, pred[0])  # Aggiungi il predecessore all'inizio del cammino
+
+            if len(tmp) > len(longest_path):  # Se il cammino corrente è più lungo del precedente massimo
+                longest_path = copy.deepcopy(tmp)  # Salva il nuovo cammino più lungo
+
+        return longest_path
+
+    # per il punto2 con metodo ricorsivo
     def getBestPathPesoMax(self, source):
         self.bestPath = []
         self.pesoMax = 0
